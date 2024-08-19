@@ -4,37 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDLTA Online Scorecard</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dropbtn {
+          background-color: #3498DB;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+        
+        .dropbtn:hover, .dropbtn:focus {
+          background-color: #2980B9;
+        }
+        
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f1f1f1;
+          min-width: auto;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        .dropdown a:hover {background-color: #ddd;}
+        
+        .show {display: block;}
+    </style>
 </head>
-<body>
-    
-    <div class="calculator">
-        <input type="text" class="calculator-screen" value="" disabled />
-        <div class="calculator-keys">
-            <button type="button" class="operator" value="+">+</button>
-            <button type="button" class="operator" value="-">-</button>
-            <button type="button" class="operator" value="*">&times;</button>
-            <button type="button" class="operator" value="/">&divide;</button>
+<body style="background-color:rgb(236, 234, 234);">
 
-            <button type="button" value="7">7</button>
-            <button type="button" value="8">8</button>
-            <button type="button" value="9">9</button>
+    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">SDLTA Online Scorecard</h1>
 
-            <button type="button" value="4">4</button>
-            <button type="button" value="5">5</button>
-            <button type="button" value="6">6</button>
-
-            <button type="button" value="1">1</button>
-            <button type="button" value="2">2</button>
-            <button type="button" value="3">3</button>
-
-            <button type="button" value="0">0</button>
-            <button type="button" class="decimal" value=".">.</button>
-            <button type="button" class="all-clear" value="all-clear">AC</button>
-
-            <button type="button" class="equal-sign" value="=">=</button>
+    <div class="dropdown">
+        <button onclick="dropMenu('myDropdown1')" class="dropbtn">Choose division</button>
+        <div id="myDropdown1" class="dropdown-content">
+            <a href="#div1">Division 1</a>
+            <a href="#div2">Division 2</a>
+            <a href="#div3">Division 3</a>
         </div>
     </div>
-    <script src="functions.js"></script>
+
+    <div class="dropdown">
+        <button onclick="dropMenu('myDropdown2')" class="dropbtn"># of rubbers</button>
+        <div id="myDropdown2" class="dropdown-content">
+            <a href="#rub1">2</a>
+            <a href="#rub2">3</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="dropMenu('myDropdown3')" class="dropbtn">Choose league</button>
+        <div id="myDropdown3" class="dropdown-content">
+            <a href="#league1">Men's Summer</a>
+            <a href="#league2">Ladies' Summer</a>
+            <a href="#league3">Men's Late Summer</a>
+            <a href="#league4">Ladies's Late Summer</a>
+            <a href="#league5">Weekend Mixed</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="dropMenu('myDropdown4')" class="dropbtn">Choose home team</button>
+        <div id="myDropdown4" class="dropdown-content">
+            <a href="#hometeam1">Graves</a>
+            <a href="#hometeam2">Hallamshire</a>
+            <a href="#hometeam3">Chesterfield</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="dropMenu('myDropdown5')" class="dropbtn">Choose away team</button>
+        <div id="myDropdown5" class="dropdown-content">
+            <a href="#awayteam1">Graves</a>
+            <a href="#awayteam2">Hallamshire</a>
+            <a href="#awayteam3">Chesterfield</a>
+        </div>
+        </div>
+    </div>
+
+    <script>
+    function dropMenu(dropdownID) {
+        document.getElementById(dropdownID).classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+    </script>
+
 </body>
 </html>
