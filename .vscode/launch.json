@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "scorecard.html",
-            "file": "/scorecard/scorecard.html"
+            "file": "/workspaces/scorecard/scorecard.html"
         }
     ]
 }
