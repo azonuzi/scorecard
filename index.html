@@ -4,83 +4,53 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#075985">
-  <meta name="description" content="A simple mobile scorecard for SDLTA matches.">
+  <meta name="description" content="Mobile scorecard for Sheffield and District LTA matches.">
   <title>SDLTA Scorecard</title>
   <style>
-    :root { color-scheme: light; --blue:#075985; --blue-dark:#0c4a6e; --ink:#172033; --muted:#526078; --line:#d8e1ed; --paper:#fff; --wash:#f1f5f9; --success:#047857; --danger:#b91c1c; }
-    * { box-sizing: border-box; }
-    body { margin:0; min-width:320px; background:var(--wash); color:var(--ink); font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    header { background:linear-gradient(135deg,var(--blue-dark),var(--blue)); color:#fff; padding:28px 20px 24px; }
-    header > div, main { max-width:760px; margin:auto; }
-    h1 { margin:0; font-size:clamp(1.8rem,5vw,2.5rem); letter-spacing:-.03em; }
-    header p { margin:6px 0 0; opacity:.9; }
-    main { padding:20px 16px 42px; }
-    .card { background:var(--paper); border:1px solid var(--line); border-radius:16px; box-shadow:0 2px 8px #0f172a0d; padding:20px; margin-bottom:16px; }
-    h2 { margin:0 0 16px; font-size:1.15rem; }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .full { grid-column:1 / -1; }
-    label { display:block; color:var(--muted); font-size:.9rem; font-weight:650; }
-    select, input, button { font:inherit; }
-    select, input { width:100%; margin-top:6px; border:1px solid #b8c5d6; border-radius:10px; background:#fff; color:var(--ink); padding:12px; min-height:46px; }
-    select:focus, input:focus, button:focus-visible { outline:3px solid #7dd3fc; outline-offset:2px; }
-    .hint { margin:10px 0 0; color:var(--muted); font-size:.87rem; }
-    .rubber { border-top:1px solid var(--line); padding:20px 0 0; margin-top:20px; }
-    .rubber:first-child { border-top:0; padding-top:0; margin-top:0; }
-    .rubber-title { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 12px; font-size:1rem; }
-    .result { color:var(--muted); font-size:.9rem; font-weight:650; text-align:right; }
-    .sets { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin-top:14px; }
-    .set { border:1px solid var(--line); border-radius:12px; padding:10px; background:#f8fafc; }
-    .set strong { display:block; text-align:center; font-size:.82rem; color:var(--muted); }
-    .set-fields { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:7px; }
-    .set input { padding:8px; min-height:40px; text-align:center; }
-    .summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .score-box { border-radius:12px; padding:16px; background:#e0f2fe; text-align:center; }
-    .score-box strong { display:block; font-size:2rem; line-height:1.1; color:var(--blue-dark); }
-    .score-box span { display:block; color:var(--muted); font-size:.86rem; margin-top:5px; }
-    .validation { min-height:1.35em; margin:12px 0 0; color:var(--danger); font-weight:600; }
-    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-    button { min-height:46px; border:0; border-radius:10px; cursor:pointer; padding:10px 15px; font-weight:700; background:var(--blue); color:#fff; }
-    button:hover { background:var(--blue-dark); }
-    button.secondary { color:var(--blue-dark); background:#e0f2fe; }
-    #copy-status { color:var(--success); font-weight:650; align-self:center; }
-    footer { color:var(--muted); font-size:.83rem; text-align:center; padding:4px 0; }
-    @media (max-width:520px) { .grid { grid-template-columns:1fr; } .full { grid-column:auto; } .sets { gap:7px; } .card { padding:16px; } }
+    :root{--blue:#075985;--dark:#0c4a6e;--ink:#172033;--muted:#526078;--line:#d8e1ed;--paper:#fff;--wash:#f1f5f9;--good:#047857;--bad:#b91c1c}*{box-sizing:border-box}body{margin:0;min-width:320px;background:var(--wash);color:var(--ink);font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{padding:28px 20px 24px;background:linear-gradient(135deg,var(--dark),var(--blue));color:#fff}header>div,main{max-width:860px;margin:auto}h1{margin:0;font-size:clamp(1.85rem,5vw,2.6rem);letter-spacing:-.03em}header p{margin:5px 0 0;opacity:.9}main{padding:20px 16px 44px}.card{margin-bottom:16px;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--paper);box-shadow:0 2px 8px #0f172a0d}h2{margin:0 0 16px;font-size:1.15rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}label{display:block;font-size:.9rem;font-weight:650;color:var(--muted)}select,input,button{font:inherit}select,input{width:100%;min-height:46px;margin-top:6px;padding:11px;border:1px solid #b8c5d6;border-radius:10px;background:#fff;color:var(--ink)}select:focus,input:focus,button:focus-visible{outline:3px solid #7dd3fc;outline-offset:2px}.hint{margin:10px 0 0;font-size:.87rem;color:var(--muted)}.players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.player-group{padding:14px;border:1px solid var(--line);border-radius:12px;background:#f8fafc}.player-group h3{margin:0 0 8px;font-size:1rem}.player-group input{min-height:40px;padding:8px}.match{padding:20px 0 0;margin-top:20px;border-top:1px solid var(--line)}.match:first-child{padding-top:0;margin-top:0;border-top:0}.match-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 12px;font-size:1rem}.result{font-size:.88rem;font-weight:650;color:var(--muted);text-align:right}.players-in-match{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pair{padding:12px;border:1px solid var(--line);border-radius:12px;background:#f8fafc}.pair strong{display:block;margin-bottom:4px;font-size:.9rem}.pair select{min-height:40px;margin-top:7px;padding:8px}.sets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.set{padding:10px;border:1px solid var(--line);border-radius:12px;background:#f8fafc}.set strong{display:block;text-align:center;font-size:.82rem;color:var(--muted)}.set-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}.set input{min-height:40px;margin:0;padding:8px;text-align:center}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.score-box{padding:16px;border-radius:12px;background:#e0f2fe;text-align:center}.score-box strong{display:block;font-size:1.6rem;color:var(--dark)}.score-box span{display:block;margin-top:5px;font-size:.85rem;color:var(--muted)}.status{min-height:1.35em;margin:12px 0 0;font-weight:650}.error{color:var(--bad)}.success{color:var(--good)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}button{min-height:46px;padding:10px 15px;border:0;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}button:hover{background:var(--dark)}button.secondary{background:#e0f2fe;color:var(--dark)}footer{padding:4px 0;text-align:center;font-size:.83rem;color:var(--muted)}@media(max-width:580px){.grid,.players,.players-in-match{grid-template-columns:1fr}.full{grid-column:auto}.sets{gap:7px}.card{padding:16px}.pair{padding:10px}}
   </style>
 </head>
 <body>
-  <header><div><h1>SDLTA Scorecard</h1><p>Record a match on court, from your phone.</p></div></header>
-  <main>
-    <form id="scorecard" novalidate>
-      <section class="card" aria-labelledby="match-details"><h2 id="match-details">Match details</h2>
-        <div class="grid">
-          <label>League<select name="league" required><option value="">Choose a league</option><option>Men's Summer</option><option>Ladies' Summer</option><option>Men's Late Summer</option><option>Ladies' Late Summer</option><option>Weekend Mixed</option></select></label>
-          <label>Division<select name="division" required><option value="">Choose a division</option><option>Division 1</option><option>Division 2</option><option>Division 3</option></select></label>
-          <label>Home team<select name="homeTeam" required><option value="">Choose home team</option><option>Graves</option><option>Hallamshire</option><option>Chesterfield</option></select></label>
-          <label>Away team<select name="awayTeam" required><option value="">Choose away team</option><option>Graves</option><option>Hallamshire</option><option>Chesterfield</option></select></label>
-          <label class="full">Number of rubbers<select name="rubbers" id="rubber-count"><option value="2">2 rubbers</option><option value="3" selected>3 rubbers</option></select></label>
-        </div><p class="hint">This version saves your entries on this device until you reset them.</p>
-      </section>
-      <section class="card" aria-labelledby="rubbers-title"><h2 id="rubbers-title">Rubbers</h2><div id="rubbers"></div></section>
-      <section class="card" aria-labelledby="summary-title"><h2 id="summary-title">Match summary</h2>
-        <div class="summary-grid"><div class="score-box"><strong id="home-rubbers">0</strong><span id="home-summary">Home rubbers</span></div><div class="score-box"><strong id="away-rubbers">0</strong><span id="away-summary">Away rubbers</span></div></div>
-        <p class="hint" id="sets-summary">Sets: 0–0</p><p class="validation" id="validation" role="alert"></p>
-        <div class="actions"><button type="button" id="copy">Copy summary</button><button type="button" class="secondary" id="reset">Reset scorecard</button><span id="copy-status" role="status"></span></div>
-      </section>
-    </form><footer>SDLTA Scorecard · Scores are stored only in this browser.</footer>
-  </main>
-  <script>
-    const form = document.querySelector('#scorecard');
-    const rubbersContainer = document.querySelector('#rubbers');
-    const storageKey = 'sdlta-scorecard-v1';
-    const blankRubber = i => `<article class="rubber" data-rubber="${i}"><h3 class="rubber-title">Rubber ${i + 1}<span class="result">Not decided</span></h3><div class="grid"><label>Home players<input name="r${i}-home-players" autocomplete="name" placeholder="e.g. A. Smith / B. Jones"></label><label>Away players<input name="r${i}-away-players" autocomplete="name" placeholder="e.g. C. Taylor / D. Khan"></label></div><div class="sets">${[1,2,3].map(set => `<div class="set"><strong>Set ${set}</strong><div class="set-fields"><input aria-label="Rubber ${i + 1}, set ${set}, home score" name="r${i}-s${set}-home" type="number" inputmode="numeric" min="0" max="99" placeholder="H"><input aria-label="Rubber ${i + 1}, set ${set}, away score" name="r${i}-s${set}-away" type="number" inputmode="numeric" min="0" max="99" placeholder="A"></div></div>`).join('')}</div></article>`;
-    function data() { return Object.fromEntries(new FormData(form)); }
-    function renderRubbers() { const existing = data(); const count = Number(form.elements.rubbers.value || 3); rubbersContainer.innerHTML = Array.from({length:count}, (_,i) => blankRubber(i)).join(''); Object.entries(existing).forEach(([key,value]) => { const field = form.elements.namedItem(key); if (field) field.value = value; }); update(); }
-    function scoreOf(i) { let homeSets=0, awaySets=0, completeSets=0; for (let set=1; set<=3; set++) { const h=Number(form.elements['r'+i+'-s'+set+'-home'].value), a=Number(form.elements['r'+i+'-s'+set+'-away'].value); const hasHome=form.elements['r'+i+'-s'+set+'-home'].value !== '', hasAway=form.elements['r'+i+'-s'+set+'-away'].value !== ''; if (!hasHome && !hasAway) continue; if (!hasHome || !hasAway || h === a) continue; completeSets++; h>a ? homeSets++ : awaySets++; } return {homeSets,awaySets,completeSets,winner: homeSets >= 2 ? 'home' : awaySets >= 2 ? 'away' : null}; }
-    function update() { let homeRubbers=0, awayRubbers=0, homeSets=0, awaySets=0; const count=Number(form.elements.rubbers.value || 3); for(let i=0;i<count;i++){ const s=scoreOf(i); homeSets+=s.homeSets; awaySets+=s.awaySets; if(s.winner==='home') homeRubbers++; if(s.winner==='away') awayRubbers++; const label=document.querySelector('[data-rubber="'+i+'"] .result'); label.textContent=s.winner ? (s.winner==='home' ? 'Home wins' : 'Away wins')+' ('+s.homeSets+'–'+s.awaySets+')' : s.completeSets ? 'In progress ('+s.homeSets+'–'+s.awaySets+')' : 'Not decided'; } document.querySelector('#home-rubbers').textContent=homeRubbers; document.querySelector('#away-rubbers').textContent=awayRubbers; document.querySelector('#home-summary').textContent=(form.homeTeam.value || 'Home')+' rubbers'; document.querySelector('#away-summary').textContent=(form.awayTeam.value || 'Away')+' rubbers'; document.querySelector('#sets-summary').textContent='Sets: '+homeSets+'–'+awaySets; const error=form.homeTeam.value && form.homeTeam.value===form.awayTeam.value ? 'Home and away teams must be different.' : ''; document.querySelector('#validation').textContent=error; localStorage.setItem(storageKey, JSON.stringify(data())); }
-    form.addEventListener('input', update); form.addEventListener('change', event => { if (event.target.id === 'rubber-count') renderRubbers(); else update(); });
-    document.querySelector('#reset').addEventListener('click', () => { if (confirm('Reset all match details and scores?')) { localStorage.removeItem(storageKey); form.reset(); renderRubbers(); } });
-    document.querySelector('#copy').addEventListener('click', async () => { const d=data(), count=Number(d.rubbers||3); const lines=['SDLTA Scorecard', d.league||'League not selected', d.division||'Division not selected', (d.homeTeam||'Home')+' vs '+(d.awayTeam||'Away')]; for(let i=0;i<count;i++){const s=scoreOf(i);lines.push('Rubber '+(i+1)+': '+s.homeSets+'–'+s.awaySets+(s.winner?' ('+(s.winner==='home'?(d.homeTeam||'Home'):(d.awayTeam||'Away'))+' wins)':''));} lines.push('Rubbers: '+document.querySelector('#home-rubbers').textContent+'–'+document.querySelector('#away-rubbers').textContent); try { await navigator.clipboard.writeText(lines.join('\n')); document.querySelector('#copy-status').textContent='Copied.'; } catch { document.querySelector('#copy-status').textContent='Copy is not available in this browser.'; } });
-    try { const saved=JSON.parse(localStorage.getItem(storageKey)); if(saved) Object.entries(saved).forEach(([key,value]) => { const field=form.elements.namedItem(key); if(field) field.value=value; }); } catch {} renderRubbers();
-  </script>
-</body>
-</html>
+<header><div><h1>SDLTA Scorecard</h1><p>Record Sheffield and District doubles matches from your phone.</p></div></header>
+<main>
+<form id="scorecard" novalidate>
+  <section class="card"><h2>Match details</h2><div class="grid">
+    <label>League<select name="league"><option value="">Choose a league</option><option>Men's Summer</option><option>Women's Summer</option><option>Men's Late Summer</option><option>Women's Late Summer</option><option>Midweek Mixed</option><option>Saturday Summer Mixed</option><option>Winter League (Mixed)</option></select></label>
+    <label>Division<select name="division"><option value="">Choose a division</option><option>Division 1</option><option>Division 2</option><option>Division 3</option><option>Division 4</option><option>Division 5</option><option>Division 6</option></select></label>
+    <label>Home club<select name="homeClub" class="club"><option value="">Choose home club</option></select></label>
+    <label>Away club<select name="awayClub" class="club"><option value="">Choose away club</option></select></label>
+    <label class="full">Pairs per team<select name="pairs" id="pairs"><option value="2">2 pairs · 4 players · 4 matches</option><option value="3">3 pairs · 6 players · 9 matches</option></select></label>
+  </div><p class="hint">The club list comes from the Sheffield and District LTA directory. A championship tie-break decides a rubber at one set all.</p></section>
+  <section class="card"><h2>Players</h2><p class="hint">Enter each player once, then choose them for every match below.</p><div id="player-lists" class="players"></div></section>
+  <section class="card"><h2>Matches</h2><div id="matches"></div></section>
+  <section class="card"><h2>Match summary</h2><div class="summary-grid">
+    <div class="score-box"><strong id="home-totals">0 · 0 · 0</strong><span id="home-label">Home — matches · sets · games</span></div>
+    <div class="score-box"><strong id="away-totals">0 · 0 · 0</strong><span id="away-label">Away — matches · sets · games</span></div>
+  </div><p class="hint" id="points">Enter completed scores to calculate league points.</p><p class="status error" id="status" role="alert"></p>
+  <div class="actions"><button type="button" id="copy">Copy summary</button><button type="button" class="secondary" id="reset">Reset scorecard</button><span class="status success" id="copy-status" role="status"></span></div></section>
+</form><footer>SDLTA Scorecard · Drafts are stored only in this browser.</footer>
+</main>
+<script>
+const clubs=["Abbeydale","Bamford","Barnsley","Baslow","Beauchief","Bradfield","Brentwood","Buxton","Chesterfield","Doncaster","Dore & Totley","Ecclesall","Fulwood","Graves","Grove","Hallam Grange","Hallamshire","Mexborough","Millhouses","Ridgeway","Moorgate","Rustlings","St Andrews","Yorkshire Visually Impaired","Stocksbridge","Thorncliffe","Welbeck","Wheatley Hills","Wingerworth"];
+const schedule={2:[[0,1,0,1],[2,3,2,3],[2,3,0,1],[0,1,2,3]],3:[[0,1,0,1],[2,3,2,3],[4,5,4,5],[4,5,0,1],[0,1,2,3],[2,3,4,5],[2,3,0,1],[4,5,2,3],[0,1,4,5]]};
+const form=document.querySelector("#scorecard"), playerLists=document.querySelector("#player-lists"), matches=document.querySelector("#matches"), storageKey="sdlta-scorecard-v2";
+document.querySelectorAll(".club").forEach(select=>clubs.forEach(club=>select.add(new Option(club,club))));
+const data=()=>Object.fromEntries(new FormData(form));
+const pairCount=()=>Number(form.elements.pairs.value);
+const nameFor=(team,index)=>form.elements[team+"-"+index]?.value.trim()||team.charAt(0).toUpperCase()+team.slice(1)+" player "+(index+1);
+const playerOptions=(team,selected)=>Array.from({length:pairCount()*2},(_,i)=>'<option value="'+team+'-'+i+'" '+(selected===team+'-'+i?'selected':'')+'>'+nameFor(team,i)+'</option>').join("");
+const playerInputs=team=>'<div class="player-group"><h3>'+team[0].toUpperCase()+team.slice(1)+' players</h3>'+Array.from({length:pairCount()*2},(_,i)=>'<label>Player '+(i+1)+'<input name="'+team+'-'+i+'" autocomplete="name" placeholder="'+team[0].toUpperCase()+team.slice(1)+' player '+(i+1)+'"></label>').join("")+'</div>';
+function renderPlayers(){const old=data();playerLists.innerHTML=playerInputs("home")+playerInputs("away");Object.entries(old).forEach(([key,value])=>{const field=form.elements.namedItem(key);if(field)field.value=value;});}
+function playerSelect(team,slot,selected){return '<select aria-label="'+team+' player '+(slot+1)+'" name="m'+currentMatch+"-"+team+"-"+slot+'">'+playerOptions(team,selected)+'</select>'}
+let currentMatch=0;
+function matchCard(index,row){currentMatch=index;const old=data();const h1=old['m'+index+'-home-0']||'home-'+row[0],h2=old['m'+index+'-home-1']||'home-'+row[1],a1=old['m'+index+'-away-0']||'away-'+row[2],a2=old['m'+index+'-away-1']||'away-'+row[3];const score=(kind,label)=>'<div class="set"><strong>'+label+'</strong><div class="set-fields"><input aria-label="Match '+(index+1)+' '+label+' home score" name="m'+index+'-'+kind+'-home" type="number" inputmode="numeric" min="0" max="99" placeholder="H"><input aria-label="Match '+(index+1)+' '+label+' away score" name="m'+index+'-'+kind+'-away" type="number" inputmode="numeric" min="0" max="99" placeholder="A"></div></div>';return '<article class="match" data-match="'+index+'"><h3 class="match-title">Match '+(index+1)+'<span class="result">Not decided</span></h3><div class="players-in-match"><div class="pair"><strong>Home pair</strong>'+playerSelect("home",0,h1)+playerSelect("home",1,h2)+'</div><div class="pair"><strong>Away pair</strong>'+playerSelect("away",0,a1)+playerSelect("away",1,a2)+'</div></div><div class="sets">'+score("set1","Set 1")+score("set2","Set 2")+score("tie","Championship TB")+'</div></article>';}
+function renderMatches(){const old=data();matches.innerHTML=schedule[pairCount()].map((row,i)=>matchCard(i,row)).join("");Object.entries(old).forEach(([key,value])=>{const field=form.elements.namedItem(key);if(field)field.value=value;});update();}
+function value(index,kind,team){const field=form.elements['m'+index+'-'+kind+'-'+team];return {set:field.value!=="",number:Number(field.value)}}
+function matchScore(i){let homeSets=0,awaySets=0,homeGames=0,awayGames=0,invalid=false;for(const kind of ["set1","set2"]){const h=value(i,kind,"home"),a=value(i,kind,"away");if(!h.set&&!a.set)continue;if(!h.set||!a.set||h.number===a.number){invalid=true;continue}h.number>a.number?(homeSets++,homeGames+=h.number,awayGames+=a.number):(awaySets++,homeGames+=h.number,awayGames+=a.number)}const tH=value(i,"tie","home"),tA=value(i,"tie","away");if(tH.set||tA.set){if(!tH.set||!tA.set||tH.number===tA.number||homeSets!==1||awaySets!==1)invalid=true;else tH.number>tA.number?homeSets++:awaySets++;}const winner=homeSets===2?"home":awaySets===2?"away":null;return{homeSets,awaySets,homeGames,awayGames,winner,invalid};}
+function update(){let hm=0,am=0,hs=0,as=0,hg=0,ag=0,invalid=false,complete=true;for(let i=0;i<schedule[pairCount()].length;i++){const s=matchScore(i);hm+=s.winner==="home";am+=s.winner==="away";hs+=s.homeSets;as+=s.awaySets;hg+=s.homeGames;ag+=s.awayGames;invalid||=s.invalid;complete&&=Boolean(s.winner);const label=document.querySelector('[data-match="'+i+'"] .result');label.textContent=s.winner?(s.winner==="home"?"Home wins":"Away wins")+" ("+s.homeSets+"–"+s.awaySets+")":s.homeSets||s.awaySets?"In progress ("+s.homeSets+"–"+s.awaySets+")":"Not decided";}document.querySelector("#home-totals").textContent=hm+" · "+hs+" · "+hg;document.querySelector("#away-totals").textContent=am+" · "+as+" · "+ag;document.querySelector("#home-label").textContent=(form.elements.homeClub.value||"Home")+" — matches · sets · games";document.querySelector("#away-label").textContent=(form.elements.awayClub.value||"Away")+" — matches · sets · games";const same=form.elements.homeClub.value&&form.elements.homeClub.value===form.elements.awayClub.value;document.querySelector("#status").textContent=same?"Home and away clubs must be different.":invalid?"Complete both sides of every entered score. A championship tie-break is valid only after one set each.":"";let pointText="Enter completed scores to calculate league points.";if(complete&&!same&&!invalid){let winner=hm===am?(hs===as?(hg===ag?"draw":hg>ag?"home":"away"):hs>as?"home":"away"):hm>am?"home":"away";pointText=winner==="draw"?"Match drawn — 1 league point each.":(winner==="home"?form.elements.homeClub.value:form.elements.awayClub.value)+" wins — 2 league points."; }document.querySelector("#points").textContent=pointText;localStorage.setItem(storageKey,JSON.stringify(data()));}
+form.addEventListener("input",event=>{if(event.target.name.startsWith("home-")||event.target.name.startsWith("away-")){document.querySelectorAll(".match select").forEach(select=>{const selected=select.value,parts=selected.split("-"),team=parts[0],i=Number(parts[1]);select.options[i].text=nameFor(team,i);});}update();});form.addEventListener("change",event=>{if(event.target.id==="pairs"){renderPlayers();renderMatches();}else update();});
+document.querySelector("#reset").addEventListener("click",()=>{if(confirm("Reset all match details, players, and scores?")){localStorage.removeItem(storageKey);form.reset();renderPlayers();renderMatches();}});
+document.querySelector("#copy").addEventListener("click",async()=>{const d=data(),home=form.elements.homeClub.value||"Home",away=form.elements.awayClub.value||"Away";const totals=[document.querySelector("#home-totals").textContent,document.querySelector("#away-totals").textContent];const text=["SDLTA Scorecard",d.league||"League not selected",d.division||"Division not selected",home+" vs "+away,home+": "+totals[0]+" (matches · sets · games)",away+": "+totals[1]+" (matches · sets · games)",document.querySelector("#points").textContent].join("\n");try{await navigator.clipboard.writeText(text);document.querySelector("#copy-status").textContent="Copied."}catch{document.querySelector("#copy-status").textContent="Copy is not available in this browser."}});
+try{const saved=JSON.parse(localStorage.getItem(storageKey));if(saved)Object.entries(saved).forEach(([key,value])=>{const field=form.elements.namedItem(key);if(field)field.value=value;});}catch{}renderPlayers();renderMatches();
+</script>
+</body></html>
