@@ -11,7 +11,9 @@ A lightweight, mobile-first scorecard for Sheffield and District LTA doubles mat
 - Captures two sets and, when the sets are split, a 10-point championship tie-break.
 - Totals matches, sets, and games. A tied match is decided by matches won, then sets, then games; a win earns two league points and a fully tied match earns one each.
 - Records each player once, then offers them in a selection list for every match.
-- Saves the current scorecard only in the browser on the device being used and can copy a plain-text result summary.
+- Saves every edit automatically in the browser on the device being used, even after the browser is closed.
+- Lets a captain download a JSON backup and restore it later on this or another device.
+- Can copy a plain-text result summary.
 
 ## Publish it with GitHub Pages
 
