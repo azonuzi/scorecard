@@ -33,7 +33,7 @@
 <script>
 const clubs=["Abbeydale","Bamford","Barnsley","Baslow","Beauchief","Bradfield","Brentwood","Buxton","Chesterfield","Doncaster","Dore & Totley","Ecclesall","Fulwood","Graves","Grove","Hallam Grange","Hallamshire","Mexborough","Millhouses","Ridgeway","Moorgate","Rustlings","St Andrews","Yorkshire Visually Impaired","Stocksbridge","Thorncliffe","Welbeck","Wheatley Hills","Wingerworth"];
 const schedule={2:[[0,1,0,1],[2,3,2,3],[2,3,0,1],[0,1,2,3]],3:[[0,1,0,1],[2,3,2,3],[4,5,4,5],[4,5,0,1],[0,1,2,3],[2,3,4,5],[2,3,0,1],[4,5,2,3],[0,1,4,5]]};
-const form=document.querySelector("#scorecard"), playerLists=document.querySelector("#player-lists"), matches=document.querySelector("#matches"), storageKey="sdlta-scorecard-v2";
+const form=document.querySelector("#scorecard"), playerLists=document.querySelector("#player-lists"), matches=document.querySelector("#matches"), storageKey="sdlta-scorecard-v3";
 document.querySelectorAll(".club").forEach(select=>clubs.forEach(club=>select.add(new Option(club,club))));
 const data=()=>Object.fromEntries(new FormData(form));
 const pairCount=()=>Number(form.elements.pairs.value);
